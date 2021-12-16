@@ -1,0 +1,9 @@
+{% extends "base.jinja" %}
+
+{% block header %}
+  <h1>{% block title %}Ошибка{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+{{ message }}
+{% endblock %}

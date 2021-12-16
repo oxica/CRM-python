@@ -1,0 +1,50 @@
+{% extends "base.jinja" %}
+
+{% block header %}
+  <h1>{% block title %} Редагувати запис {% endblock %}</h1>
+    <a class="action" href="{{ url_for('delete_record', record_id=record_id) }}">Видалити запис</a>
+{% endblock %}
+
+{% block content %}
+<article class="post">
+    <form method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Поле</th>
+                <th>Значення</th>
+            </tr>
+        </thead>
+        {% for idx, field in record %}
+          <tr>
+            <th>{{ field.field_description }}</th>
+            <th>
+                    <input name="idx" type="hidden" value="{{ idx }}" required>
+                    <input name="type" type="hidden" value="{{ field.field_description }}" required>
+                    <label>
+                        <input name="value" value="{{ field.value }}" required>
+                    </label>
+            </th>
+              <th>
+                  <a href="{{ url_for("delete_field", record_id=record_id, field_index=idx) }}">
+                      Видалити
+                  </a>
+              </th>
+          </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="Зберегти">
+    </form>
+<form method="post">
+  <label for="type">Оберіть тип поля</label>
+  <select name="type" id="type">
+      {% for field in fields %}
+        <option value="{{ field }}">{{ field }}</option>
+      {% endfor %}
+  </select>
+{#  <br><br>#}
+    <label><input name="value" value="" required></label>
+  <input type="submit" value="Додати">
+</form>
+</article>
+{% endblock %}

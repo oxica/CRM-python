@@ -1,0 +1,31 @@
+{% extends "base.jinja" %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+    <a class="action" href="{{ url_for('new_record') }}">Додати запис</a>
+    <a class="action" href="{{ url_for('search') }}">Пошук</a>
+    <a class="action" href="{{ stat_url }}">Статистика</a>
+{% endblock %}
+
+{% block content %}
+<article class="post">
+  <table width="100%" ID="Table2" style="margin: 0px;" class = "tbl">
+  <tr>
+            <th class = "cell">Name</th>
+            <th class = "cell">City</th>
+            <th class = "cell">Skills</th>
+            <th class = "cell">Rate</th>
+            <th class = "cell">Phone</th>
+      </tr>
+  {% for id, record in records.items() %}
+      <tr>
+            <td class = "cell"><a class="action" href="{{ url_for('record', record_id=id) }}">{{ record }}</a></td>
+            <td class = "cell">{{ record.get_city() }}</td>
+            <td class = "cell">{{ record.get_skills() }}</td>
+            <td class = "cell">{{ record.get_rate() }}</td>
+            <td class = "cell">{{ record.get_phone() }}</td>
+      </tr>
+  {% endfor %}
+  </table>
+</article>
+{% endblock %}

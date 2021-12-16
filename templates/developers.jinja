@@ -1,0 +1,31 @@
+{% extends "base.jinja" %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+    <a class="action" href="{{ url_for('new_developer') }}">Добавить запись</a>
+    <a class="action" href="{{ url_for('search') }}">Поиск</a>
+    <a class="action" href="{{ stat_url }}">Статистика</a>
+{% endblock %}
+
+{% block content %}
+<article class="post">
+  <table width="100%" ID="Table2" style="margin: 0px;" class = "tbl">
+  <tr>
+            <th class = "cell">Name</th>
+            <th class = "cell">City</th>
+            <th class = "cell">Skills</th>
+            <th class = "cell">Rate</th>
+            <th class = "cell">Phone</th>
+      </tr>
+  {% for id, developer in developers.items() %}
+      <tr>
+            <td class = "cell"><a class="action" href="{{ url_for('developer', developer_id=id) }}">{{ developer }}</a></td>
+            <td class = "cell">{{ developer.get_city() }}</td>
+            <td class = "cell">{{ developer.get_skills() }}</td>
+            <td class = "cell">{{ developer.get_rate() }}</td>
+            <td class = "cell">{{ developer.get_phone() }}</td>
+      </tr>
+  {% endfor %}
+  </table>
+</article>
+{% endblock %}

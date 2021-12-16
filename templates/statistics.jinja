@@ -1,0 +1,53 @@
+{% extends "base.jinja" %}
+
+{% block header %}
+  <h1>{% block title %} Статистика {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article class="post">
+    <table>
+      <tr>
+        <th>Разработчиков:</th>
+        <th>{{ statistics["item_number"] }}</th>
+      </tr>
+      <tr>
+        <th>Наибольшее значение:</th>
+        <th>{{ statistics["max"] }}</th>
+      </tr>
+      <tr>
+        <th>Наименьшее значение:</th>
+        <th>{{ statistics["min"] }}</th>
+      </tr>
+      <tr>
+        <th>Среднее значение:</th>
+        <th>{{ statistics["mean"] }}</th>
+      </tr>
+      <tr>
+        <th>Общая сумма:</th>
+        <th>{{ statistics["total"] }}</th>
+      </tr>
+    </table>
+</article>
+<article class="post">
+    {% if search %}
+        <div><h2>Поисковой запрос</h2></div>
+    {% if 'all' in search %}
+        Поиск по запросу: "{{ search['all'] }}"
+    {% else %}
+        <table>
+          <tr>
+            <th>Поле</th>
+            <th>Значение</th>
+          </tr>
+            {% for field, value in search.items() %}
+              <tr>
+                <th>{{ field }}</th>
+                <th>{{ value }}</th>
+              </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endif %}
+</article>
+{% endblock %}
